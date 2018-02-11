@@ -1,18 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import GetEvents from './components/GetEvents';
+import CurrentLocation from './components/CurrentLocation';
+import Container from './components/Container';
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super();
+
+    this.state = {
+      address: ''
+    }
+  }
+
+  handleAddress = (addressValue) => {
+    this.setState({address: addressValue})
+  }
+
   render() {
+    console.log(this.state.address)
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+      <Container />
+        <CurrentLocation onChangeAddress={this.handleAddress}/>
+        <GetEvents />
       </div>
     );
   }
