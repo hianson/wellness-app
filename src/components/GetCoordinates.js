@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 
-class CurrentLocation extends Component {
+class GetCoordinates extends Component {
   constructor() {
     super();
 
@@ -20,13 +20,13 @@ class CurrentLocation extends Component {
   handleChange = (event) => {
     var address = event.target.value
     this.setState({address: event.target.value});
-    this.props.onChangeAddress(address)
   }
 
   handleSubmit(event) {
-    console.log('An address was submitted: ' + this.state.value);
     event.preventDefault();
-    this.getCoordinates();
+    if (this.state.address) {
+      this.getCoordinates();
+    }
   }
 
   getCoordinates() {
@@ -37,20 +37,21 @@ class CurrentLocation extends Component {
     .then(response => {
       var lat = response.data.results[0].geometry.location.lat
       var lng = response.data.results[0].geometry.location.lng
-      // console.log(lat, lng)
       var coords = {
         lat: lat,
         lng: lng
       }
       self.setState({ coords })
+      this.props.onChangeAddress(this.state.coords)
+      
     })
     .catch(error => {
       console.log(error);
     });
+
   }
 
   render() {
-    console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
         <label>
@@ -63,4 +64,4 @@ class CurrentLocation extends Component {
   }
 }
 
-export default CurrentLocation;
+export default GetCoordinates;

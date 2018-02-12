@@ -5,6 +5,10 @@ export class Map extends React.Component {
   constructor() {
     super();
     this.state = {
+      coords: {
+        lat: 0,
+        lng: 0
+      }
     }
   }
   componentDidUpdate(prevProps, prevState) {
@@ -27,8 +31,8 @@ export class Map extends React.Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let zoom = 15;
-      let lat = 37.774929;
-      let lng = -122.419416;
+      let lat = this.state.coords.lat;
+      let lng = this.state.coords.lng;
       const center = new maps.LatLng(lat, lng);
       const mapConfig = Object.assign({}, {
         center: center,
