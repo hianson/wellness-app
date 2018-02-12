@@ -2,19 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export class Map extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      coords: {
-        lat: 0,
-        lng: 0
-      }
-    }
-  }
+
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
+    this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
   }
 
   componentDidMount() {
@@ -31,8 +28,8 @@ export class Map extends React.Component {
       const node = ReactDOM.findDOMNode(mapRef);
 
       let zoom = 15;
-      let lat = this.state.coords.lat;
-      let lng = this.state.coords.lng;
+      let lat = this.props.coords.lat;
+      let lng = this.props.coords.lng;
       const center = new maps.LatLng(lat, lng);
       const mapConfig = Object.assign({}, {
         center: center,

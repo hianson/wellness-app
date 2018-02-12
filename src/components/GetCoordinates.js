@@ -18,7 +18,6 @@ class GetCoordinates extends Component {
   }
 
   handleChange = (event) => {
-    var address = event.target.value
     this.setState({address: event.target.value});
   }
 
@@ -43,7 +42,7 @@ class GetCoordinates extends Component {
       }
       self.setState({ coords })
       this.props.onChangeAddress(this.state.coords)
-      
+
     })
     .catch(error => {
       console.log(error);

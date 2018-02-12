@@ -9,7 +9,7 @@ export class Container extends React.Component {
     }
     return (
       <div>
-        <Map google={this.props.google} />
+        <Map google={this.props.google} coords={this.props.coords}/>
       </div>
     )
   }

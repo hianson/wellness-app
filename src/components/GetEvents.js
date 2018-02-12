@@ -10,18 +10,22 @@ class GetEvents extends Component {
     }
   }
 
-  componentDidMount() {
-    const key = process.env.REACT_APP_EVENTBRITE_KEY
-    var self = this
+  componentWillReceiveProps(nextProps) {
+    this.props = nextProps;
 
-    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${key}&categories=107`)
+    const secret = process.env.REACT_APP_EVENTBRITE_KEY
+    var self = this
+    var lat = this.props.coords.lat
+    var lng = this.props.coords.lng
+
+    axios.get(`
+      https://www.eventbriteapi.com/v3/events/search/?token=${secret}&categories=107&&location.latitude=${lat}&location.longitude=${lng}`)
     .then(response => {
       let events = response.data.events.map((event, i) => {
         return(
           <li key={i}>{event.name.text}</li>
         )
       })
-      // console.log(response)
       self.setState({ events: events })
     })
     .catch(error => {
