@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
 
 class CurrentLocation extends Component {
   constructor() {
     super();
 
     this.state = {
-      address: ''
+      address: '',
+      coords: {
+        lat: 0,
+        lng: 0
+      }
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -20,11 +24,33 @@ class CurrentLocation extends Component {
   }
 
   handleSubmit(event) {
-    console.log('A name was submitted: ' + this.state.value);
+    console.log('An address was submitted: ' + this.state.value);
     event.preventDefault();
+    this.getCoordinates();
+  }
+
+  getCoordinates() {
+    var address = this.state.address
+    var self = this;
+
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}`)
+    .then(response => {
+      var lat = response.data.results[0].geometry.location.lat
+      var lng = response.data.results[0].geometry.location.lng
+      // console.log(lat, lng)
+      var coords = {
+        lat: lat,
+        lng: lng
+      }
+      self.setState({ coords })
+    })
+    .catch(error => {
+      console.log(error);
+    });
   }
 
   render() {
+    console.log(this.state)
     return (
       <form onSubmit={this.handleSubmit}>
         <label>

@@ -2,6 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export class Map extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+    }
+  }
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
@@ -21,7 +26,7 @@ export class Map extends React.Component {
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      let zoom = 14;
+      let zoom = 15;
       let lat = 37.774929;
       let lng = -122.419416;
       const center = new maps.LatLng(lat, lng);
