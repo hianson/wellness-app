@@ -7,6 +7,11 @@ In a vastly growing tech-world, having products which keeps users’ health in m
 
 Bringing attention to Health-related events matters because many people - even outside of the tech world - are sitting, stationary, and staring at their computer screens. Any technology which also helps us get away from it is essential for self-care, and this wellness app is a friendly reminder of that.
 
+### Tech:
+- React.js
+- Google Maps API
+- Eventbrite API
+
 ### In-progress:
 - Yelp Fusion or Google Places API for healthy food/drink suggestions 
 - Map markers should lead to event page.
