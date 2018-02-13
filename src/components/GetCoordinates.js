@@ -53,10 +53,7 @@ class GetCoordinates extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>
-          Address:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
+          <input type="text" placeholder=" Address or location" value={this.state.value} onChange={this.handleChange} />
         <input type="submit" value="Submit" />
       </form>
     );
