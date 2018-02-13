@@ -13,18 +13,11 @@ export class Map extends React.Component {
     this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
 
     if (this.props && this.props.google) {
-      // google is available
       const {google} = this.props;
-      const maps = google.maps;
-
-      const mapRef = this.refs.map;
-      const node = ReactDOM.findDOMNode(mapRef);
-
-      let zoom = 15;
       let lat = this.props.coords.lat;
       let lng = this.props.coords.lng;
 
-      var marker = new google.maps.Marker({
+      new google.maps.Marker({
         position: {lat: lat, lng: lng},
         map: this.map,
         title: 'Hello World!'
@@ -41,11 +34,10 @@ export class Map extends React.Component {
       // google is available
       const {google} = this.props;
       const maps = google.maps;
-
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      let zoom = 15;
+      let zoom = 12;
       let lat = this.props.coords.lat;
       let lng = this.props.coords.lng;
       const center = new maps.LatLng(lat, lng);
@@ -58,21 +50,20 @@ export class Map extends React.Component {
   }
 
   renderMarkers() {
-    // if google is available:
     if (this.props && this.props.google) {
       const {google} = this.props;
-      const maps = google.maps;
-      var events = this.props.events
-      // take the events and map over them
+      const events = this.props.events
+
       events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
-        // create a new marker for every event!
-        var marker = new google.maps.Marker({
+
+        return(
+        new google.maps.Marker({
           position: {lat: lat, lng: lng},
           map: this.map,
           title: 'Hello World!'
-        });
+        }))
       })
     }
   }
