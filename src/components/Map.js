@@ -10,8 +10,6 @@ export class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.log('current props: ', this.props)
-    // console.log('nextProps: ', nextProps)
     this.props = nextProps;
     this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
 
@@ -23,11 +21,9 @@ export class Map extends React.Component {
       const mapRef = this.refs.map;
       const node = ReactDOM.findDOMNode(mapRef);
 
-      // let zoom = 15;
+      let zoom = 15;
       let lat = this.props.coords.lat;
       let lng = this.props.coords.lng;
-
-      // this.map.clearMarkers();
 
       var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
@@ -59,13 +55,11 @@ export class Map extends React.Component {
         zoom: zoom
       })
       this.map = new maps.Map(node, mapConfig);
-
-
     }
-    // ...
   }
 
   render() {
+    console.log(this.props.events)
     const style = {
       width: '500px',
       height: '500px'
