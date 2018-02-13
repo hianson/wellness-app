@@ -1,4 +1,4 @@
-# Wellness App
+# Wellness App - https://thawing-dawn-65843.herokuapp.com/
 
 ### What is this?
 Eventbrite shows tons of health-related events in a huge variety of genres, from educational talks to meditation and group workouts, and everything in-between. This app exposes that variety to users on a simple Google Map to help persuade them to attend these events and invest in their well-being.
