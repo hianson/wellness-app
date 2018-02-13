@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import GetCoordinates from './components/GetCoordinates';
 import Container from './components/Container';
+import Header from './components/Header';
+import Footer from './components/Footer';
 import axios from 'axios';
 import './App.css';
 
@@ -59,8 +61,10 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <Header />
         <Container events={this.state.events} places={this.state.places} coords={this.state.coords}/>
         <GetCoordinates onChangeAddress={this.handleAddress}/>
+        <Footer />
       </div>
     );
   }
