@@ -13,9 +13,15 @@ export class Map extends React.Component {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
+
   }
 
   componentWillReceiveProps(nextProps) {
+    for (var i in this.state.markers) {
+      var marker = this.state.markers[i]
+      marker.setMap(null)
+    }
+
     this.props = nextProps;
     this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
 
@@ -30,9 +36,7 @@ export class Map extends React.Component {
         title: 'Hello World!'
       });
     }
-
     this.renderMarkers()
-
   }
 
   componentDidMount() {
