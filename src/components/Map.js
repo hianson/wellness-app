@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 export class Map extends React.Component {
-
   componentDidUpdate(prevProps, prevState) {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
@@ -58,8 +57,28 @@ export class Map extends React.Component {
     }
   }
 
+  renderMarkers() {
+    // if google is available:
+    if (this.props && this.props.google) {
+      const {google} = this.props;
+      const maps = google.maps;
+      var events = this.props.events
+      // take the events and map over them
+      events.map((event, i) => {
+        var lat = parseFloat(event.venue.latitude)
+        var lng = parseFloat(event.venue.longitude)
+        // create a new marker for every event!
+        var marker = new google.maps.Marker({
+          position: {lat: lat, lng: lng},
+          map: this.map,
+          title: 'Hello World!'
+        });
+      })
+    }
+  }
+
   render() {
-    console.log(this.props.events)
+    // console.log(this.props.events)
     const style = {
       width: '500px',
       height: '500px'
@@ -67,6 +86,7 @@ export class Map extends React.Component {
     return (
       <div style={style} ref='map'>
         Loading map...
+        {this.renderMarkers()}
       </div>
     )
   }

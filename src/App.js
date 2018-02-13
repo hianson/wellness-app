@@ -10,6 +10,7 @@ class App extends Component {
 
     this.state = {
       address: '',
+      events: [],
       coords: {
         lat: 0,
         lng: 0
@@ -38,7 +39,7 @@ class App extends Component {
     var lat = this.state.coords.lat
     var lng = this.state.coords.lng
 
-    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${secret}&categories=107&&location.latitude=${lat}&location.longitude=${lng}`)
+    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${secret}&categories=107&location.latitude=${lat}&location.longitude=${lng}&expand=venue`)
     .then(response => {
       this.setState({ events: response.data.events })
     })
