@@ -12,7 +12,6 @@ export class Container extends React.Component {
         <Map
           google={this.props.google}
           events={this.props.events}
-          places={this.props.places}
           coords={this.props.coords}
         />
       </div>

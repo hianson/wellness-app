@@ -92,7 +92,6 @@ export class Map extends React.Component {
   }
 
   render() {
-    console.log(this.state.markers)
     const style = {
       width: '500px',
       height: '500px',
