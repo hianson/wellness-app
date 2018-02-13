@@ -11,6 +11,7 @@ class App extends Component {
     this.state = {
       address: '',
       events: [],
+      drinks: [],
       coords: {
         lat: 0,
         lng: 0

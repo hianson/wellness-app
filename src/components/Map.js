@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Marker from './Marker';
 
 export class Map extends React.Component {
   constructor() {
@@ -13,7 +14,6 @@ export class Map extends React.Component {
     if (prevProps.google !== this.props.google) {
       this.loadMap();
     }
-
   }
 
   componentWillReceiveProps(nextProps) {
@@ -24,6 +24,7 @@ export class Map extends React.Component {
 
     this.props = nextProps;
     this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
+
 
     if (this.props && this.props.google) {
       const {google} = this.props;
@@ -67,7 +68,10 @@ export class Map extends React.Component {
     if (this.props && this.props.google) {
       const {google} = this.props;
       const events = this.props.events
+      var image = require('../img/leaf.png');
 
+
+      // map returns array of markers
       var markers = events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
@@ -76,7 +80,8 @@ export class Map extends React.Component {
           new google.maps.Marker({
             position: {lat: lat, lng: lng},
             map: this.map,
-            title: 'Hello World!'
+            title: 'Hello World!',
+            icon: image
           })
         )
       })
@@ -88,7 +93,8 @@ export class Map extends React.Component {
     // console.log(this.props.events)
     const style = {
       width: '500px',
-      height: '500px'
+      height: '500px',
+      margin: '40px auto 40px auto'
     }
     return (
       <div style={style} ref='map'>
