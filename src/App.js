@@ -11,7 +11,7 @@ class App extends Component {
     this.state = {
       address: '',
       events: [],
-      drinks: [],
+      places: [],
       coords: {
         lat: 0,
         lng: 0
@@ -33,6 +33,7 @@ class App extends Component {
     this.setState({coords: addressValue}, () => {
       this.getEvents()
     })
+
   }
 
   getEvents() {
@@ -47,13 +48,18 @@ class App extends Component {
     .catch(error => {
       console.log(error);
     });
+    this.getPlaces()
   }
 
+
+  getPlaces() {
+    // console.log('getting places')
+  }
 
   render() {
     return (
       <div className="App">
-        <Container events={this.state.events} coords={this.state.coords}/>
+        <Container events={this.state.events} places={this.state.places} coords={this.state.coords}/>
         <GetCoordinates onChangeAddress={this.handleAddress}/>
       </div>
     );

@@ -1,7 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Marker from './Marker';
-
 export class Map extends React.Component {
   constructor() {
     super()
@@ -17,14 +15,9 @@ export class Map extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    for (var i in this.state.markers) {
-      var marker = this.state.markers[i]
-      marker.setMap(null)
-    }
-
+    this.removeMarkers();
     this.props = nextProps;
     this.map.panTo({lat: this.props.coords.lat, lng: this.props.coords.lng})
-
 
     if (this.props && this.props.google) {
       const {google} = this.props;
@@ -34,7 +27,7 @@ export class Map extends React.Component {
       new google.maps.Marker({
         position: {lat: lat, lng: lng},
         map: this.map,
-        title: 'Hello World!'
+        title: 'Current Location'
       });
     }
     this.renderMarkers()
@@ -64,14 +57,19 @@ export class Map extends React.Component {
     }
   }
 
+  removeMarkers() {
+    for (var i in this.state.markers) {
+      var marker = this.state.markers[i]
+      marker.setMap(null)
+    }
+  }
+
   renderMarkers() {
     if (this.props && this.props.google) {
       const {google} = this.props;
       const events = this.props.events
       var image = require('../img/leaf.png');
 
-
-      // map returns array of markers
       var markers = events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
@@ -80,7 +78,7 @@ export class Map extends React.Component {
           new google.maps.Marker({
             position: {lat: lat, lng: lng},
             map: this.map,
-            title: 'Hello World!',
+            title: event.name.text,
             icon: image
           })
         )
@@ -90,7 +88,7 @@ export class Map extends React.Component {
   }
 
   render() {
-    // console.log(this.props.events)
+    // console.log(this.refs.map)
     const style = {
       width: '500px',
       height: '500px',

@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from './Map.js';
+import Map from './Map';
 import {GoogleApiWrapper} from 'google-maps-react';
 
 export class Container extends React.Component {
@@ -9,7 +9,12 @@ export class Container extends React.Component {
     }
     return (
       <div>
-        <Map google={this.props.google} events={this.props.events} coords={this.props.coords}/>
+        <Map
+          google={this.props.google}
+          events={this.props.events}
+          places={this.props.places}
+          coords={this.props.coords}
+        />
       </div>
     )
   }
