@@ -74,21 +74,25 @@ export class Map extends React.Component {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
 
-        return(
-          new google.maps.Marker({
+          var marker = new google.maps.Marker({
             position: {lat: lat, lng: lng},
             map: this.map,
             title: event.name.text,
-            icon: image
+            icon: image,
+            url: event.url
           })
-        )
+
+          marker.addListener('click', function() {
+            window.open(marker.url)
+          })
+          return(marker)
       })
     }
     this.setState({ markers: markers })
   }
 
   render() {
-    // console.log(this.refs.map)
+    console.log(this.state.markers)
     const style = {
       width: '500px',
       height: '500px',
