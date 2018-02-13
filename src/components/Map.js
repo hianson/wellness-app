@@ -28,7 +28,6 @@ export class Map extends React.Component {
       let lng = this.props.coords.lng;
 
       // this.map.clearMarkers();
-      console.log(this.map)
 
       var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
