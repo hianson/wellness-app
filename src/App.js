@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import GetEvents from './components/GetEvents';
 import GetCoordinates from './components/GetCoordinates';
 import Container from './components/Container';
+import axios from 'axios';
 import './App.css';
 
 class App extends Component {
@@ -10,6 +10,8 @@ class App extends Component {
 
     this.state = {
       address: '',
+      events: [],
+      places: [],
       coords: {
         lat: 0,
         lng: 0
@@ -17,29 +19,48 @@ class App extends Component {
     }
   }
 
-  // on componentDidMount, write function which gets user's current position
-  // set coords state to user's current position lat LatLng
   componentDidMount() {
-    console.log('getting users coords')
     navigator.geolocation.watchPosition((position) => {
       var coords = {
         lat: position.coords.latitude,
         lng: position.coords.longitude
       }
-      this.setState({ coords })
+      this.setState({ coords }, () => { this.getEvents()})
     });
   }
 
   handleAddress = (addressValue) => {
-    this.setState({coords: addressValue})
+    this.setState({coords: addressValue}, () => {
+      this.getEvents()
+    })
+
+  }
+
+  getEvents() {
+    var secret = process.env.REACT_APP_EVENTBRITE_KEY
+    var lat = this.state.coords.lat
+    var lng = this.state.coords.lng
+
+    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${secret}&categories=107&location.latitude=${lat}&location.longitude=${lng}&expand=venue`)
+    .then(response => {
+      this.setState({ events: response.data.events })
+    })
+    .catch(error => {
+      console.log(error);
+    });
+    this.getPlaces()
+  }
+
+
+  getPlaces() {
+    // console.log('getting places')
   }
 
   render() {
     return (
       <div className="App">
-        <Container coords={this.state.coords}/>
+        <Container events={this.state.events} places={this.state.places} coords={this.state.coords}/>
         <GetCoordinates onChangeAddress={this.handleAddress}/>
-        <GetEvents coords={this.state.coords}/>
       </div>
     );
   }
