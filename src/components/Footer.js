@@ -7,7 +7,7 @@ export class Footer extends React.Component {
     return (
       <div style={footerStyle}>
         <p style={textStyle}>Powered by</p>
-        <img style={imgStyle} src={image} alt='Eventbrite' />
+        <a href="https://www.eventbrite.com/" target="_blank" rel="noopener noreferrer"><img style={imgStyle} src={image} alt='Eventbrite' /></a>
       </div>
     )
   }
