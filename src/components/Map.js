@@ -73,6 +73,11 @@ export class Map extends React.Component {
       var markers = events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
+        var date = new Date(event.start.utc)
+        var desc = event.description.text.slice(0, 255) + '...'
+        // var displayDate = date.getMonth() + date.getDate() + date.getDay()
+        // console.log(date.getDate())
+        // console.log(event)
 
           var marker = new google.maps.Marker({
             position: {lat: lat, lng: lng},
@@ -82,9 +87,31 @@ export class Map extends React.Component {
             url: event.url
           })
 
+          var contentString =
+            '<div id="content">'+
+              `<h3>${marker.title}</h3>`+
+              `<h4>${date}</h4>`+
+              `<p>${desc}</p>`+
+            '</div>';
+
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString,
+            maxWidth: 300
+          })
+
           marker.addListener('click', function() {
             window.open(marker.url)
+            // infowindow.open(this.map, marker)
           })
+
+          marker.addListener('mouseover', () => {
+            infowindow.open(this.map, marker)
+          })
+
+          marker.addListener('mouseout', () => {
+            infowindow.close()
+          })
+
           return(marker)
       })
     }
@@ -93,9 +120,9 @@ export class Map extends React.Component {
 
   render() {
     const style = {
-      width: '500px',
-      height: '500px',
-      margin: '40px auto 40px auto'
+      width: '75vw',
+      height: '75vh',
+      margin: '40px auto 20px auto'
     }
     return (
       <div style={style} ref='map'>
