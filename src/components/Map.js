@@ -6,7 +6,8 @@ export class Map extends React.Component {
   constructor() {
     super()
     this.state = {
-      markers: []
+      markers: [],
+      searchLocation: null
     }
   }
 
@@ -23,16 +24,20 @@ export class Map extends React.Component {
 
     if (this.props && this.props.google) {
       const {google} = this.props;
-      let lat = this.props.coords.lat;
-      let lng = this.props.coords.lng;
+      let lat = nextProps.coords.lat;
+      let lng = nextProps.coords.lng;
 
-      new google.maps.Marker({
+      var allMarkers = [];
+
+      var marker = new google.maps.Marker({
         position: {lat: lat, lng: lng},
-        map: this.map,
-        title: 'Current Location'
-      });
+        map: this.map
+      })
+      allMarkers.push(marker)
+      // console.log(markers)
+      // this.setState({ searchLocation })
     }
-    this.renderMarkers()
+    this.renderMarkers(allMarkers)
   }
 
   componentDidMount() {
@@ -66,13 +71,13 @@ export class Map extends React.Component {
     }
   }
 
-  renderMarkers() {
+  renderMarkers(allMarkers) {
     if (this.props && this.props.google) {
       const {google} = this.props;
       const events = this.props.events
       var image = require('../img/leaf.png');
 
-      var markers = events.map((event, i) => {
+      events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
         var date = moment(event.start.utc).format("dddd, MMMM Do YYYY, h:mmA")
@@ -113,10 +118,12 @@ export class Map extends React.Component {
           infowindow.close()
         })
 
+        allMarkers.push(marker)
         return(marker)
       })
     }
-    this.setState({ markers: markers })
+
+    this.setState({ markers: allMarkers })
   }
 
   render() {
