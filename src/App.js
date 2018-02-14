@@ -18,9 +18,14 @@ class App extends Component {
         lng: 0
       }
     }
+    this.getCurrentLocation = this.getCurrentLocation.bind(this);
   }
 
   componentDidMount() {
+    this.getCurrentLocation()
+  }
+
+  getCurrentLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
       var coords = {
         lat: position.coords.latitude,
@@ -62,7 +67,7 @@ class App extends Component {
       <div className="App">
         <Header />
         <Container events={this.state.events} places={this.state.places} coords={this.state.coords}/>
-        <GetCoordinates onChangeAddress={this.handleAddress}/>
+        <GetCoordinates onChangeAddress={this.handleAddress} getCurrentLocation={this.getCurrentLocation}/>
         <Footer />
       </div>
     );

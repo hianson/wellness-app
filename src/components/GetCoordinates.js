@@ -25,6 +25,8 @@ class GetCoordinates extends Component {
     event.preventDefault();
     if (this.state.address) {
       this.getCoordinates();
+    } else {
+      this.props.getCurrentLocation();
     }
   }
 
