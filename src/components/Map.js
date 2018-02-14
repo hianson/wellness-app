@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import moment from 'moment'
+
 export class Map extends React.Component {
   constructor() {
     super()
@@ -73,49 +75,46 @@ export class Map extends React.Component {
       var markers = events.map((event, i) => {
         var lat = parseFloat(event.venue.latitude)
         var lng = parseFloat(event.venue.longitude)
-        var date = new Date(event.start.utc)
+        var date = moment(event.start.utc).format("dddd, MMMM Do YYYY, h:mmA")
         var desc = event.description.text
         if (event.description.text) {
-          var desc = event.description.text.slice(0, 255) + '...'
+          desc = event.description.text.slice(0, 255) + '...'
         }
-        // var displayDate = date.getMonth() + date.getDate() + date.getDay()
-        // console.log(date.getDate())
-        // console.log(event)
 
-          var marker = new google.maps.Marker({
-            position: {lat: lat, lng: lng},
-            map: this.map,
-            title: event.name.text,
-            icon: image,
-            url: event.url
-          })
+        var marker = new google.maps.Marker({
+          position: {lat: lat, lng: lng},
+          map: this.map,
+          title: event.name.text,
+          icon: image,
+          url: event.url
+        })
 
-          var contentString =
-            '<div id="content">'+
-              `<h3>${marker.title}</h3>`+
-              `<h4>${date}</h4>`+
-              `<p>${desc}</p>`+
-            '</div>';
+        var contentString =
+          '<div id="content">'+
+            `<h3 style="color: rgb(142, 194, 149);">${marker.title}</h3>`+
+            '<hr>' +
+            `<h4>${date}</h4>`+
+            `<p>${desc}</p>`+
+          '</div>';
 
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString,
-            maxWidth: 300
-          })
+        var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 300
+        })
 
-          marker.addListener('click', function() {
-            window.open(marker.url)
-            // infowindow.open(this.map, marker)
-          })
+        marker.addListener('click', function() {
+          window.open(marker.url)
+        })
 
-          marker.addListener('mouseover', () => {
-            infowindow.open(this.map, marker)
-          })
+        marker.addListener('mouseover', () => {
+          infowindow.open(this.map, marker)
+        })
 
-          marker.addListener('mouseout', () => {
-            infowindow.close()
-          })
+        marker.addListener('mouseout', () => {
+          infowindow.close()
+        })
 
-          return(marker)
+        return(marker)
       })
     }
     this.setState({ markers: markers })
