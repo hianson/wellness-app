@@ -43,11 +43,11 @@ class App extends Component {
   }
 
   getEvents() {
-    var secret = process.env.REACT_APP_EVENTBRITE_KEY
+    // var secret = process.env.REACT_APP_EVENTBRITE_KEY //dev
     var lat = this.state.coords.lat
     var lng = this.state.coords.lng
 
-    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${secret}&categories=107&location.latitude=${lat}&location.longitude=${lng}&expand=venue`)
+    axios.get(`https://www.eventbriteapi.com/v3/events/search/?token=${EVENTBRITE_API_KEY}&categories=107&location.latitude=${lat}&location.longitude=${lng}&expand=venue`)
     .then(response => {
       this.setState({ events: response.data.events })
     })
