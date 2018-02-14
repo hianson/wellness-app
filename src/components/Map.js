@@ -84,14 +84,13 @@ export class Map extends React.Component {
         var marker = new google.maps.Marker({
           position: {lat: lat, lng: lng},
           map: this.map,
-          title: event.name.text,
           icon: image,
           url: event.url
         })
 
         var contentString =
           '<div id="content">'+
-            `<h3 style="color: rgb(142, 194, 149);">${marker.title}</h3>`+
+            `<h3 style="color: rgb(142, 194, 149);">${event.name.text}</h3>`+
             '<hr>' +
             `<h4>${date}</h4>`+
             `<p>${desc}</p>`+
