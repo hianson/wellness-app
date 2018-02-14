@@ -34,8 +34,6 @@ export class Map extends React.Component {
         map: this.map
       })
       allMarkers.push(marker)
-      // console.log(markers)
-      // this.setState({ searchLocation })
     }
     this.renderMarkers(allMarkers)
   }
