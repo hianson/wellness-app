@@ -34,7 +34,7 @@ class GetCoordinates extends Component {
     var address = this.state.address
     var self = this;
 
-    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GOOGLE_MAPS_KEY}`)
+    axios.get(`https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GOOGLE_MAPS_API_KEY}`)
     .then(response => {
       var lat = response.data.results[0].geometry.location.lat
       var lng = response.data.results[0].geometry.location.lng
